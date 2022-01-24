@@ -64,6 +64,8 @@ https://docs.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot
 
 Disabling SMBv1 services resulted in successful mitigating against the attempted EternalBlue exploit.
 
+- [Challenge submission report (PDF)](../pdfs/CesarPlasencia_NCPReport61725.pdf)
+
 ## NICE Framework & CAE KU Mapping
 
 ### NICE Framework KSA
