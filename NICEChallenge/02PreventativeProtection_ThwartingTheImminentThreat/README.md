@@ -40,11 +40,11 @@ Additional information about EternalBlue:
 - https://www.hypr.com/eternalblue/
 
 
-Microsoft had related security patches to address this vulnerability, however updates failed to execute on the domain controller; the security patch could not be applied.
+Microsoft had released security patches to address this vulnerability, however the updates failed to execute on the domain controller; the security patch could not be applied.
 
 ![Failed updates](../images/failed_updates_challenge02.png)
 
-As a workaround to defend against exploitation, the following commands were ran in an admin-elevated PowerShell terminal to:
+As a workaround to defend against the impending exploitation, the following commands were ran in an admin-elevated PowerShell terminal to:
 
 1. Disable SMBv1 server services.
 2. Disable SMBv1 client services.
@@ -62,7 +62,7 @@ sc.exe config mrxsmb10 start= disabled
 The above commands are referenced from Microsoft's documentation:
 https://docs.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3
 
-Disabling SMBv1 services resulted in successful mitigating against the attempted EternalBlue exploit.
+Disabling SMBv1 services resulted in successful mitigation against the attempted EternalBlue exploit.
 
 - [Challenge submission report (PDF)](../pdfs/CesarPlasencia_NCPReport61725.pdf)
 
