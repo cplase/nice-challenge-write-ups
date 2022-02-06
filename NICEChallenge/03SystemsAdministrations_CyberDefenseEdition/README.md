@@ -1,5 +1,5 @@
 # Challenge 03 (#T0180) - Systems Administrations: Cyber Defense Edition
-![](../images/NICESystemAdmin.png)
+![](../images/challenge03/NICESystemAdmin.png)
 
 ## Challenge Info
 **Author:** Agustin Castro<br>
@@ -27,63 +27,67 @@ Username: `admin`<br>
 Password: `password123`
 
 ## Meeting Notes
-![](../images/meeting_notes_challenge03.png)
+![](../images/challenge03/meeting_notes.png)
 
 ## Network Map
-![](../images/PD-map.jpg)
+![](../images/challenge03/PD-map.jpg)
 
 ## Documentation
-remote into  Security desk
-Login to pfSense firewall (https://172.31.2.2)
+The Centipede site's **Edge-Router1** had a misconfiguration for its two IPsec/IKEv2 VPN tunnels. One tunnel was peered with an external MSP (172.31.2.5), while another tunnel was peered with HQ (172.16.31.2).
 
-IPsec VPN config found in firewall.
-Based on Network Map, Edge-Router1 (Centipede) is 172.31.2.3
-Mode: main
-P1 Protocol: AES-256
-P1 transforms: SHA1
-P1 DH-group: 5
-P1 description: POS1
-P2 mode: tunnel
-P2: local subnet 172.16.30.0/24
-remote subnet: 192.168.10.0/24
-P2 protocol: ESP
-P2 transforms: AES-256, 3DES
-P2 auth method: MD5,SHA1
+To begin troubleshooting, I accessed the Security Desk workstation (172.16.20.55) via a VMRC remote session. From there, I accessed the pfSense firewall (172.31.2.2) that was **Edge-Router1**'s peer for the VPN tunnel. Access to the firewall was accomplished via a web GUI interface.
 
-https://docs.vyos.io/en/equuleus/
-remote into VyOS router
-https://docs.vyos.io/en/equuleus/configuration/vpn/site2site_ipsec.html
-`$ show interfaces`
+![](../images/challenge03/pfsense.png)
 
-```
-eth0  172.31.2.3/24
-eth1  192.168.10.254/24
-lo    127.0.0.1/8
-      ::1/128
-```
+![](../images/challenge03/phase2_config.png)
 
-`$ show vpn ipsec status`
+I noticed that the pfSense firewall also had a VPN peering with the MSP, so I noted the configuration down (along with the peering information for Centipede's router).
+
+I then shifted my attention to **Edge-Router1** and accessed it via a VMRC remote session. The router ran VyOS for its operating system.
+
+The VPN tunnels used IPsec/IKEv2--which utilizes two Phases for a successful configuration. To check and see if Phase 1 was configured correctly, I ran the command `show vpn ike`:
+
+![](../images/challenge03/show_vpn_ike.png)
+
+Phase 1 configurations were correct--as shown by the `up` state in the output. Phase 2 configurations, however, were incorrect--based on the output of `show vpn ipsec sa`:
+
+![](../images/challenge03/show_vpn_ipsec_sa.png)
+
+Further diagnostic information seemed to indicate two issues:
+
+1. The IPsec ESP group profile--for both tunnel configurations--has an incorrect local network prefix set to 192.168.100.0/24.
+2. The IPsec ESP group profile--for both tunnel configurations--has an incorrect PFS cryptography setting.
+
+![](../images/challenge03/show_vpn_ipsec_sa_detail_peer_172.31.2.2.png)
 
 ```
-IPsec Interfaces :
-        eth0  (172.31.2.3)
-```
-
-`$ show vpn ipsec sa`
-
-![](../images/show_vpn_ipsec_sa-challenge02.png)
-
-`$ monitor vpn ipsec`
-
-```
+$ monitor vpn ipsec
   VPN-IPSEC: "peer-172.31.2.2-tunnel-1" #47: ignoring informational payload, type INVALID_HASH_INFORMATION
   VPN-IPSEC: "peer-172.31.2.2-tunnel-1" #61: max number of retransmissions (2) reached STATE_QUICK_I1. No acceptable response to our first Quick Mode message: perhaps peer likes no proposal
   VPN-IPSEC: "peer-172.31.2.5-tunnel-1" #55: cannot respond to IPsec SA request because no connection is known for 192.168.10.0/24===172.31.2.3[172.31.2.3]...172.31.2.5[172.31.2.5]
 ```
 
 ```
-$ config
-# 
+$ show vpn ipsec policy
+src 192.168.100.0/24 dst 172.31.2.5/32
+        dir out priority 3875 ptype main
+        tmpl src 0.0.0.0 dst 0.0.0.0
+                proto esp reqid 0 mode transport
+src 192.168.100.0/24 dst 172.16.30.0/24
+        dir out priority 3907 ptype main
+        tmpl src 0.0.0.0 dst 0.0.0.0
+                proto esp reqid 0 mode transport
+```
+
+To resolve the issue, the following configuration changes were made:
+
+```
+edit vpn ipsec esp-group ESP-1W 
+set pfs dh-group5
+edit vpn ipsec site-to-site peer 172.31.2.2 tunnel 1 local
+set prefix 192.168.10.0/24
+edit vpn ipsec site-to-site peer 172.31.2.5 tunnel 1 local
+set prefix 192.168.10.0/24
 ```
 
 ## NICE Framework & CAE KU Mapping
