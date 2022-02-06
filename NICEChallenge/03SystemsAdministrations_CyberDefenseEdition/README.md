@@ -90,6 +90,13 @@ edit vpn ipsec site-to-site peer 172.31.2.5 tunnel 1 local
 set prefix 192.168.10.0/24
 ```
 
+Configurations were then committed and saved with the following commands:
+
+```
+commit
+save
+```
+
 ## NICE Framework & CAE KU Mapping
 ### NICE Framework KSA
 * K0001. Knowledge of computer networking concepts and protocols, and network security methodologies.
