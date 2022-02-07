@@ -33,7 +33,7 @@ Password: `password123`
 ![](../images/challenge03/PD-map.jpg)
 
 ## Documentation
-The Centipede site's **Edge-Router1** had a misconfiguration for its two IPsec/IKEv2 VPN tunnels. One tunnel was peered with an external MSP (172.31.2.5), while another tunnel was peered with HQ (172.16.31.2).
+The Centipede site's **Edge-Router1** had a misconfiguration for its two IPsec/IKEv2 VPN tunnels. One tunnel was peered with an external MSP (172.31.2.5), while another tunnel was peered with HQ (172.31.2.2).
 
 To begin troubleshooting, I accessed the Security Desk workstation (172.16.20.55) via a VMRC remote session. From there, I accessed the pfSense firewall (172.31.2.2) that was **Edge-Router1**'s peer for the VPN tunnel. Access to the firewall was accomplished via a web GUI interface.
 
