@@ -5,7 +5,7 @@
 **Framework Category:** Investigate<br>
 **Specialty Area:** Digital Forensics<br>
 **Work Role:** Law Enforcement/Counter Intelligence Forensics<br>
-**Task Description** Perform file signature analysis.
+**Task Description:** Perform file signature analysis.
 
 ### Scenario
 Sergio is complaining that some of his files are broken and he can't figure out why. According to him, critical files are stored within a zip which seems to be stopping him from performing his job. Unfortunately, he has forgot the password to that zip, and the document he stores it in is broken. I need you to find a fix for the file that has the password used to unlock the zipped folder and get him access to what he needs.
