@@ -38,65 +38,57 @@ When evaluating individual check states, the automated check system ignores subm
 ![](../images/challenge08/OM2-map.jpg)
 
 ## Documentation
-Logging into `Database` (`172.16.20.4`)
-Navigated to `C:\mysql_logs`. Found logs, but it's hard to interpret them.
+The meeting notes for the challenge immediately direct you to the `Database` (`172.16.20.4`) machine--where I found the database logs at `C:\mysql_logs\mysql.log`. 
 
-Installing VSCode.
+The log file was difficult to parse in the server's default text editor (Notepad), so I decided to install Visual Studio Code to view the logs.
 
-Checks in the challenge:
-
-- [x] Correctly Reported Exploited Host and Service
-  - `Database`
-- [x] Correctly Reported Exploited Service Log File Path
-  - 
-- [x] Correctly Reported Wordpress Account[s] Subjected to Tampering
-  - 
-
-Line 678, start of suspicious activity
-
-![](../images/challenge08/sus_logs.png)
-
-Line 1010, deleting user account entries
+Starting at Line 1010, I can see suspicious logs of what seems to be accounts for the website being deleted.
 
 ![](../images/challenge08/deleting.png)
 
-Attempt 1, incorrect
+However, the accounts are referenced by a `umeta_id` number, and there's no indication of what IDs correlate to which accounts in the logs.
 
-![](../images/challenge08/attempt1_incorrect.png)
-
-Line 970, attacker used `playerone` maybe?
-
-![](../images/challenge08/usedplayeronemaybe.png)
-
-copy `mysql.log` file to `dasShare`
-
-Attempt 2, fixed filepath to log
-
-![](../images/challenge08/attempt2_incorrect.png)
-
-Need to perhaps use database backup to find deleted users?
-
-Log into `backup` machine
+To find the IDs to accounts associated, I logged into the `backup` machine (`172.16.30.79`) and secure-copied (i.e. SCP) the database backup to the `Security-Workstation` machine (`172.16.30.6`)
 
 ![](../images/challenge08/backup_login.png)
-
-SCP database backup `wordpress.sql` to `Security-Workstation`
 
 ![](../images/challenge08/scp_database_backup.png)
 
 ![](../images/challenge08/scp_successful.png)
 
-user IDs deleted:
-- 23 - 36
-- 38 - 40
-- 41 - 54
-- 1 - 22
-- 55 - 69
+I then logged into `Security-Workstation` and use `grep wp_usermeta ~/wordpress.sql` to look for information on the accounts in the database and their IDs, and I found the needed information.
 
-- playerone (1)
-- admin (24)
-- gbates (41)
-- takasaka (53)
+![](../images/challenge08/database_users.png)
+
+As indicated in the above screenshot, the first thing I noticed was data in a particular structure:
+
+```
+1,1,'nickname','playerone'
+```
+
+I deduced that the first value was likely the user ID, the second value referenced the "row" of data for a particular user account, the third value was any generic name assigned to an account, and the fourth value was the username itself (e.g. `playeron`). With this, I identified four accounts to their corresponding user IDs:
+
+- `playerone` (1)
+- `admin` (24)
+- `gbates` (41)
+- `takasaka` (53)
+
+I then referenced the database logs to identify the deleted account ID ranges:
+
+- 1 - 36 
+- 38 - 69
+
+These pieces of information confirmed that the above four accounts were deleted by the attacker.
+
+![](../images/challenge08/attempt3_correct.png)
+
+The database was breached by what seemed to be a SQL injection attack. You can see evidence of this in the logs--such as mentions of `WHERE 1=1`:
+
+![](../images/challenge08/sql_injection.png)
+
+The website's vulnerability to SQL injections gave the attacker access to the database--allowing him/her to compromise the integrity of the data in said database.
+
+To remediate the damage, the database can be restored from our backups. However, long-term remediation will involve re-programming the website to remove the SQL injection vulnerability--typically by implementing input sanitization for any user inputs (such as login pages or comment pages) on the website.
 
 ## NICE Framework & CAE KU Mapping
 
