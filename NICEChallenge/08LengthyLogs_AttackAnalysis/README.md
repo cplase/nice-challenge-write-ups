@@ -93,7 +93,22 @@ To remediate the damage, the database can be restored from our backups. However,
 ## NICE Framework & CAE KU Mapping
 
 ### NICE Framework KSA
-
+- K0004. Knowledge of cybersecurity and privacy principles.
+- K0005. Knowledge of cyber threats and vulnerabilities.
+- K0042. Knowledge of incident response and handling methodologies.
+- K0044. Knowledge of cybersecurity and privacy principles and organizational requirements (relevant to confidentiality, integrity, availability, authentication, non-repudiation).
+- K0060. Knowledge of operating systems.
+- K0070. Knowledge of system and application security threats and vulnerabilities (e.g., buffer overflow, mobile code, cross-site scripting, Procedural Language/Structured Query Language [PL/SQL] and injections, race conditions, covert channel, replay, return-oriented attacks, malicious code).
+- K0161. Knowledge of different classes of attacks (e.g., passive, active, insider, close-in, distribution attacks).
+- K0167. Knowledge of system administration, network, and operating system hardening techniques.
+- K0192. Knowledge of Windows/Unix ports and services.
+- K0297. Knowledge of countermeasure design for identified security risks.
+- K0318. Knowledge of operating system command-line tools.
 
 ### CAE Knowledge Units
-
+- Cybersecurity Foundations
+- Cybersecurity Principles
+- Cyber Threats
+- Operating Systems Administration
+- Operating Systems Concepts
+- Vulnerability Analysis
