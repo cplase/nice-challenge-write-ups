@@ -79,10 +79,30 @@ To get around this blockade, I instead logged in as `.\playerone` (i.e. a local 
 
 ![](../images/challenge09/workstation-desk_fixed.png)
 
-## NICE Framework & CAE KU Mapping
+## NICE Framework
 
-### NICE Framework KSA
+### Tasks
+- T0291 Examine network topologies to understand data flows through the network.
 
+### Knowledge, Skills, and Abilities
+- K0001 Knowledge of computer networking concepts and protocols, and network security
+methodologies.
+- K0004 Knowledge of cybersecurity and privacy principles.
+- K0005 Knowledge of cyber threats and vulnerabilities.
+- K0060 Knowledge of operating systems.
+- K0061 Knowledge of how traffic flows across the network (e.g., Transmission Control Protocol [TCP]
+and Internet Protocol [IP], Open System Interconnection Model [OSI], Information Technology
+Infrastructure Library, current version [ITIL]).
+- K0167 Knowledge of system administration, network, and operating system hardening techniques.
+- K0221 Knowledge of OSI model and underlying network protocols (e.g., TCP/IP).
+- K0318 Knowledge of operating system command-line tools.
+- K0332 Knowledge of network protocols such as TCP/IP, Dynamic Host Configuration, Domain Name
+System (DNS), and directory services.
 
-### CAE Knowledge Units
-
+## Centers of Academic Excellence Knowledge Units
+- Basic Networking
+- Cybersecurity Foundations
+- Cybersecurity Principles
+- IT Systems Components
+- Operating Systems Administration
+- Operating Systems Concepts
