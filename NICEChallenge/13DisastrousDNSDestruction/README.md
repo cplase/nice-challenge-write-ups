@@ -79,7 +79,20 @@ The final task was to investigate the `Fileshare` server to find a sample of the
 ## NICE Framework & CAE KU Mapping
 
 ### NICE Framework KSA
-
+- K0001. Knowledge of computer networking concepts and protocols, and network security methodologies.
+- K0002. Knowledge of risk management processes (e.g., methods for assessing and mitigating risk).
+- K0004. Knowledge of cybersecurity and privacy principles.
+- K0034. Knowledge of network services and protocols interactions that provide network communications.
+- K0042. Knowledge of incident response and handling methodologies.
+- K0167. Knowledge of system administration, network, and operating system hardening techniques.
+- K0179. Knowledge of network security architecture concepts including topology, protocols, components, and principles (e.g., application of defense-in-depth).
+- K0565. Knowledge of the common networking and routing protocols (e.g. TCP/IP), services (e.g., web, mail, DNS), and how they interact to provide network communications.
+- S0077. Skill in securing network communications.
 
 ### CAE Knowledge Units
-
+- Basic Cyber Operations
+- Basic Networking
+- Data Administration
+- Digital Communications
+- IT Systems Components
+- Network Technology and Protocols
