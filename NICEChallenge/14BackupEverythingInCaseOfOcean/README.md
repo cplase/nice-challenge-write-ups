@@ -83,9 +83,23 @@ Finally, to continuously run the backup script every minute, I made a cron job t
 This resulted in completing this challenge.
 
 ## NICE Framework & CAE KU Mapping
-
 ### NICE Framework KSA
-
+- K0021. Knowledge of data backup and recovery.
+- K0056. Knowledge of network access, identity, and access management (e.g., public key infrastructure, Oauth, OpenID, SAML, SPML).
+- K0060. Knowledge of operating systems.
+- K0077. Knowledge of server and client operating systems.
+- K0088. Knowledge of systems administration concepts.
+- K0100. Knowledge of the enterprise information technology (IT) architecture.
+- K0158. Knowledge of organizational information technology (IT) user security policies (e.g., account creation, password rules, access control).
+- K0318. Knowledge of operating system command-line tools.
+- K0346. Knowledge of principles and methods for integrating system components.
+- S0143. Skill in conducting system/server planning, management, and maintenance.
+- S0151. Skill in troubleshooting failed system components (i.e., servers)
 
 ### CAE Knowledge Units
+- Data Administration
+- Databases
+- IT Systems Components
+- Operating Systems Administration
+- Operating Systems Concepts
 
